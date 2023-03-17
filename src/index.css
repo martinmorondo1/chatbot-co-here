@@ -18,3 +18,93 @@
   -webkit-text-size-adjust: 100%;
 }
 
+h1 {
+  padding: 20px 50px !important;
+  transition: .3s;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  border: 1px solid #FECACA;
+  padding: 1rem;
+}
+
+h1:hover {
+  background-color: rgba(128, 128, 128, 0.129);
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+
+.message-id {
+  animation: fade-in 0.3s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.input {
+  width: 99%;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px -1px rgba(246, 5, 5, 0.1), 
+  0px 2px 4px -1px rgba(255, 7, 7, 0.67);
+  transition: .3s;
+  border-radius: 0.25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  flex: 1;
+  border: 0.1px solid rgba(255, 0, 0, 0.297);
+  padding-top: 0.5rem;
+  padding-bottom: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.input:hover {
+  box-shadow: 0px 4px 6px -1px rgba(243, 203, 203, 0.559), 
+  0px 2px 4px -1px rgba(164, 132, 132, 0.223);
+}
+
+.input:focus {
+  font-weight: bold;
+}
+
+.loading-btn {
+  transition: .3s;
+  width: 60px;
+  height: 40px;
+  margin-top: 20px;
+  position: absolute;
+  left: 418px;
+  top: -21px;
+  font-size: 19px;
+  background-color: transparent;
+ }
+
+ .loading-btn:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+
+
+
+
