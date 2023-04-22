@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useState, useEffect, useRef } from "react";
 
 
@@ -102,15 +103,16 @@ function Chat() {
   ]);
 
   const [question, setQuestion] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, toggleLoading] = useState<boolean>(false);
   const container = useRef<HTMLDivElement>(null);
+  const [isCollapsed, toggleCollapsed] = useState<boolean>(true);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    if(loading) return;
+    if(isLoading) return;
 
-    setLoading(true);
+    toggleLoading(true);
     setMessages((messages) => 
       messages.concat({id: String(Date.now()), type: "user", text: question}),
       );
@@ -136,7 +138,7 @@ function Chat() {
     text: ANSWERS[classifications[0].prediction as keyof typeof ANSWERS] || ANSWERS["spanishRandom"],
   }),
   ))
-  setLoading(false); 
+  toggleLoading(false); 
 }
 
   useEffect(() => {
@@ -147,7 +149,15 @@ function Chat() {
     <div className="main-container min-h-screen flex flex-col justify-center items-center p-4">
     <h1 className="main-text font-bold rounded border border-red-100 p-4">Chatbot</h1>
     <main className="p-4">
-      <div className = 'flex-container flex flex-col gap-4 m-auto max-w-lg border border-white-400 p-4 rounded-md'>
+      <div className="fixed bottom-3 right-2">
+        {isCollapsed ? (
+          <button className="bg-blue-500 text-white p-2 rounded-tl-lg" onClick={() => toggleCollapsed(false)}>
+            Abrir chat
+          </button>
+        ) : (
+      <div className="relative">
+        <button className="text-xl rounded-full bg-red-600 w-8 h-8 absolute -left-4 -top-3" onClick={() => toggleCollapsed(true)}>×</button>
+        <div className = 'flex-container flex flex-col gap-4 m-auto max-w-lg border border-white-400 p-4 rounded-md'>
         <div ref = {container} className="container flex flex-col gap-4 h-[300px] overflow-y-auto">
         {messages.map((message) => (
           <div key={message.id} className={`message-id p-4 max-w-[80%] rounded-3xl text-white ${message.type === 'bot' 
@@ -164,13 +174,16 @@ function Chat() {
             onChange={(event) => setQuestion(event.target.value)}
             />
           <button 
-          disabled={loading}
+          disabled={isLoading}
           type="submit" 
           className={`loading-btn px-4 py-2 bg-blue-500 rounded-lg rounded-l-none
-          ${loading ? 'bg-blue-300': 'bg-blue-500'}`}
+          ${isLoading ? 'bg-blue-300': 'bg-blue-500'}`}
           >↩</button>
         </form>
-          </div>
+        </div>
+      </div> 
+      )}
+      </div> 
     </main> 
     </div>
   );
